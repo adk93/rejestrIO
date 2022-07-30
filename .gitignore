@@ -1,0 +1,4 @@
+.env
+datas/
+app.log
+data.csv
