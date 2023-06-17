@@ -2,3 +2,4 @@
 datas/
 app.log
 data.csv
+*.json

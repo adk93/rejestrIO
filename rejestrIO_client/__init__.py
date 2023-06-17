@@ -1,6 +1,5 @@
 # Standard library imports
-from typing import List, Tuple, Dict
-import json
+from typing import List, Dict
 
 # Third party imports
 import requests
@@ -43,7 +42,7 @@ class RejestrIO:
         response = self._get_request(url, params={"nazwa": company_name})
 
         data = []
-        for result in response.get("wyniki"):
+        for result in response.get("wyniki", []):
             name = result.get("nazwy", {}).get("pelna")
             contact = result.get('kontakt', {}).get('www', None)
             krs_number = result.get("numery", {}).get("krs")
@@ -52,6 +51,12 @@ class RejestrIO:
             data.append(company)
 
         return data
+
+    def get_company_by_krs_number(self, krs_number: str) -> Company:
+        url = f"https://rejestr.io/api/v1/krs/{krs_number}"
+        response = self._get_request(url)
+        company_name = response.get("name", None)
+        return Company(company_name=company_name, krs_number=krs_number)
 
     def get_documents_by_krs_number(self, krs_number: str) -> List[Document]:
         url = f"https://rejestr.io/api/v2/org/{krs_number}/krs-dokumenty"

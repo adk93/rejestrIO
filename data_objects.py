@@ -1,6 +1,6 @@
 # Standard library imports
-from dataclasses import dataclass, field
-from typing import List
+from dataclasses import dataclass
+from typing import Optional
 
 # Third party imports
 
@@ -17,19 +17,19 @@ class Company:
 @dataclass
 class Document:
     company_krs: str
-    date_start: str
-    date_end: str
-    name: str
     document_id: str
+    date_start: Optional[str] = None
+    date_end: Optional[str] = None
+    name: Optional[str] = None
 
 
 @dataclass
 class DocumentContents:
-    doc_id: List = field()
-    org_id: List = field()
-    doc_name: List = field()
-    date_start: List = field()
-    date_end: List = field()
-    node_name: List = field()
-    label: List = field()
-    val: List = field()
+    document_id: str
+    company_krs: str
+    doc_name: Optional[str] = None
+    date_start: Optional[str] = None
+    date_end: Optional[str] = None
+    node_name: Optional[str] = None
+    label: Optional[str] = None
+    val: Optional[str] = None
